@@ -219,6 +219,19 @@ document.getElementById("email").value = "";
 // Focus back to the first field
 document.getElementById("name").focus();
 
+} // <-- End of generateQR()
+
+// Logout function
+function logout(){
+
+    if(confirm("Are you sure you want to logout?")){
+
+        sessionStorage.removeItem("loggedIn");
+
+        window.location.href = "login.html";
+
+    }
+
 }
 
 </script>
