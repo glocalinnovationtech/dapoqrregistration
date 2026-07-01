@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QR Code Records</title>
+
+<style>
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f4f4;
+    padding:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+
+button{
+    padding:8px 14px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin:5px;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.delete-btn{
+    background:#dc3545;
+    color:white;
+}
+
+.clear-btn{
+    background:#ff9800;
+    color:white;
+}
+
+.back-btn{
+    background:#3082da;
+    color:white;
+}
+
+.actions{
+    margin-top:20px;
+    text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>ADMIN PAGE</h2>
+
+<table>
+
+<thead>
+
+<tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Cell Number</th>
+    <th>Email</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+<div class="actions">
+
+<button class="clear-btn" onclick="clearRecords()">
+🗑 Clear All Records
+</button>
+
+<button class="back-btn" onclick="window.location.href='index.html'">
+⬅ Back
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function loadTable(){
+
+    let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
+
+    let tbody = document.getElementById("tableBody");
+
+    tbody.innerHTML = "";
+
+    if(records.length===0){
+
+        tbody.innerHTML=`
+        <tr>
+            <td colspan="8">
+                No records found.
+            </td>
+        </tr>
+        `;
+
+        return;
+
+    }
+
+    records.forEach((person,index)=>{
+
+        tbody.innerHTML += `
+        <tr>
+
+            <td>${index+1}</td>
+
+            <td>${person.name}</td>
+
+            <td>${person.address}</td>
+
+            <td>${person.cell}</td>
+
+            <td>${person.email}</td>
+
+            <td>${person.date}</td>
+
+            <td>${person.time}</td>
+
+            <td>
+
+                <button class="delete-btn"
+                onclick="deleteRecord(${index})">
+
+                🗑 Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+        `;
+
+    });
+
+}
+
+function deleteRecord(index){
+
+    let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
+
+    if(confirm("Delete this record?")){
+
+        records.splice(index,1);
+
+        localStorage.setItem("qrRecords",JSON.stringify(records));
+
+        loadTable();
+
+    }
+
+}
+
+function clearRecords(){
+
+    if(confirm("Delete ALL records?")){
+
+        localStorage.removeItem("qrRecords");
+
+        loadTable();
+
+    }
+
+}
+
+loadTable();
+
+</script>
+
+</body>
+</html>

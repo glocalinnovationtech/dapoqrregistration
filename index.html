@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QR Code Generator</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#9dfaa5;
+    display:flex;
+    justify-content:center;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    width:420px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:10px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    background:#3082da;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#005dc0;
+}
+
+.logout-btn{
+    background:#dc3545;
+}
+
+.logout-btn:hover{
+    background:#bb2d3b;
+}
+
+#qrcode{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+}
+
+.output{
+    margin-top:15px;
+    padding:10px;
+    background:#f9f9f9;
+    border-radius:5px;
+    white-space:pre-line;
+}
+
+</style>
+</head>
+
+<body>
+
+<script>
+
+if(sessionStorage.getItem("loggedIn") !== "true"){
+    window.location.href = "login.html";
+}
+
+</script>
+
+<div class="container">
+
+<h2>QR Code Generator</h2>
+
+<label>Name</label>
+<input type="text" id="name">
+
+<label>Address</label>
+<textarea id="address" rows="3"></textarea>
+
+<label>Cell Number</label>
+<input type="text" id="cell">
+
+<label>Email</label>
+<input type="email" id="email">
+
+<button onclick="generateQR()">
+Generate QR Code
+</button>
+
+<button onclick="window.location.href='records.html'">
+View Generated Records
+</button>
+
+<button class="logout-btn" onclick="logout()">
+Logout
+</button>
+
+<div class="output" id="output"></div>
+
+<div id="qrcode"></div>
+
+</div>
+
+<script>
+
+function generateQR(){
+
+    const name = document.getElementById("name").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const cell = document.getElementById("cell").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if(!name || !address || !cell || !email){
+
+        alert("Please complete all fields.");
+        return;
+
+    }
+
+    const qrData =
+`Name: ${name}
+Address: ${address}
+Cell: ${cell}
+Email: ${email}`;
+
+    document.getElementById("output").textContent = qrData;
+
+    document.getElementById("qrcode").innerHTML = "";
+
+    new QRCode(document.getElementById("qrcode"),{
+        text: qrData,
+        width:250,
+        height:250
+    });
+
+    let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
+
+    const now = new Date();
+
+    records.push({
+        name:name,
+        address:address,
+        cell:cell,
+        email:email,
+        date:now.toLocaleDateString(),
+        time:now.toLocaleTimeString()
+    });
+
+    localStorage.setItem(
+        "qrRecords",
+        JSON.stringify(records)
+    );
+
+    setTimeout(function(){
+
+        window.location.href = "records.html";
+
+    },1000);
+
+}
+
+function logout(){
+
+    if(confirm("Are you sure you want to logout?")){
+
+        sessionStorage.removeItem("loggedIn");
+
+        window.location.href = "login.html";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
