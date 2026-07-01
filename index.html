@@ -109,7 +109,13 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
 <textarea id="address" rows="3"></textarea>
 
 <label>Cell Number</label>
-<input type="text" id="cell">
+<input
+    type="text"
+    id="cell"
+    maxlength="11"
+    inputmode="numeric"
+    placeholder="09XXXXXXXXX"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
 <label>Email</label>
 <input type="email" id="email">
@@ -136,69 +142,82 @@ Logout
 
 function generateQR(){
 
-    const name = document.getElementById("name").value.trim();
-    const address = document.getElementById("address").value.trim();
-    const cell = document.getElementById("cell").value.trim();
-    const email = document.getElementById("email").value.trim();
+const name = document.getElementById("name").value.trim();
+const address = document.getElementById("address").value.trim();
+const cell = document.getElementById("cell").value.trim();
+const email = document.getElementById("email").value.trim();
 
-    if(!name || !address || !cell || !email){
+// Check if all fields are filled
+if(!name || !address || !cell || !email){
+    alert("Please complete all fields.");
+    return;
+}
 
-        alert("Please complete all fields.");
-        return;
+// Validate Philippine mobile number
+const phonePattern = /^09\d{9}$/;
 
-    }
+if(!phonePattern.test(cell)){
+    alert("Cell Number must be a valid 11-digit Philippine mobile number.\n\nExample: 09171234567");
+    document.getElementById("cell").focus();
+    return;
+}
 
-    const qrData =
+// Validate email
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!emailPattern.test(email)){
+    alert("Please enter a valid email address.");
+    document.getElementById("email").focus();
+    return;
+}
+
+// QR data
+const qrData =
 `Name: ${name}
 Address: ${address}
 Cell: ${cell}
 Email: ${email}`;
 
-    document.getElementById("output").textContent = qrData;
+// Show information
+document.getElementById("output").textContent = qrData;
 
-    document.getElementById("qrcode").innerHTML = "";
+// Remove old QR
+document.getElementById("qrcode").innerHTML = "";
 
-    new QRCode(document.getElementById("qrcode"),{
-        text: qrData,
-        width:250,
-        height:250
-    });
+// Generate new QR
+new QRCode(document.getElementById("qrcode"),{
+    text: qrData,
+    width:250,
+    height:250
+});
 
-    let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
+// Save record
+let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
 
-    const now = new Date();
+const now = new Date();
 
-    records.push({
-        name:name,
-        address:address,
-        cell:cell,
-        email:email,
-        date:now.toLocaleDateString(),
-        time:now.toLocaleTimeString()
-    });
+records.push({
+    name: name,
+    address: address,
+    cell: cell,
+    email: email,
+    date: now.toLocaleDateString(),
+    time: now.toLocaleTimeString()
+});
 
-    localStorage.setItem(
-        "qrRecords",
-        JSON.stringify(records)
-    );
+localStorage.setItem("qrRecords", JSON.stringify(records));
 
-    setTimeout(function(){
+// Success message
+alert("QR Code generated successfully!\n\nThe information has been saved.");
 
-        window.location.href = "records.html";
+// Clear form fields
+document.getElementById("name").value = "";
+document.getElementById("address").value = "";
+document.getElementById("cell").value = "";
+document.getElementById("email").value = "";
 
-    },1000);
-
-}
-
-function logout(){
-
-    if(confirm("Are you sure you want to logout?")){
-
-        sessionStorage.removeItem("loggedIn");
-
-        window.location.href = "login.html";
-
-    }
+// Focus back to the first field
+document.getElementById("name").focus();
 
 }
 
