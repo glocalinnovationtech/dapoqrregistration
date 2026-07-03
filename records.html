@@ -3,6 +3,7 @@
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <meta charset="UTF-8">
 <title> DAPO QR Code Records</title>
 
@@ -216,8 +217,15 @@ function loadTable(){
     }
 
     // Filter by month
-    if(selectedMonth !== "" && !person.date.includes(selectedMonth)){
-        return;
+    if(selectedMonth !== ""){
+
+const monthName = new Date(person.date).toLocaleString("en-US",{
+    month:"long"
+});
+
+if(monthName !== selectedMonth){
+    return;
+}
     }
 
         tbody.innerHTML += `
@@ -258,7 +266,7 @@ function loadTable(){
 function deleteRecord(index){
 
     let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
-
+    console.log(records);
     if(confirm("Delete this record?")){
 
         records.splice(index,1);
