@@ -125,7 +125,7 @@ Generate QR Code
 </button>
 
 <button onclick="window.location.href='records.html'">
-View Generated Records
+View Records
 </button>
 
 <button class="logout-btn" onclick="logout()">
@@ -196,14 +196,32 @@ let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
 
 const now = new Date();
 
+// Format the date
+const formattedDate = now.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+});
+
+// Format the time
+const formattedTime = now.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+});
+
+// Save the record
 records.push({
     name: name,
     address: address,
     cell: cell,
     email: email,
-    date: now.toLocaleDateString(),
-    time: now.toLocaleTimeString()
+    date: formattedDate,
+    time: formattedTime
 });
+
+
 
 localStorage.setItem("qrRecords", JSON.stringify(records));
 
