@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 <meta charset="UTF-8">
 <title>QR Code Records</title>
 
@@ -82,9 +84,53 @@ button:hover{
 
 <div class="container">
 
-<h2>ADMIN PAGE</h2>
+    <h2>ADMIN PAGE</h2>
 
-<table>
+    <p id="totalRecords" style="font-weight:bold;text-align:center;color:#007bff;">
+    Total Records: 0
+    </p>
+    
+    <input
+    type="text"
+    id="searchBox"
+    placeholder="🔍 Search by name..."
+    onkeyup="loadTable()"
+    style="
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:5px;
+    border:1px solid #ccc;
+    box-sizing:border-box;">
+    
+    <select
+    id="monthFilter"
+    onchange="loadTable()"
+    style="
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border-radius:5px;
+    border:1px solid #ccc;">
+    
+    <option value="">📅 All Months</option>
+    
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+    <option value="October">October</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+    
+    </select>
+    
+    <table>
 
 <thead>
 
@@ -117,6 +163,18 @@ button:hover{
 ⬅ Back
 </button>
 
+<button onclick="window.print()">
+    🖨 Print
+    </button>
+
+<button onclick="exportExcel()">
+        📊 Export Excel
+    </button>
+
+<button onclick="exportPDF()">
+        📄 Export PDF
+    </button>
+
 </div>
 
 </div>
@@ -126,10 +184,15 @@ button:hover{
 function loadTable(){
 
     let records = JSON.parse(localStorage.getItem("qrRecords")) || [];
-
+    document.getElementById("totalRecords").innerHTML =
+    "Total Records: " + records.length;
+    let keyword = document.getElementById("searchBox").value.toLowerCase();
+    let selectedMonth = document.getElementById("monthFilter").value;
+    
     let tbody = document.getElementById("tableBody");
 
     tbody.innerHTML = "";
+
 
     if(records.length===0){
 
@@ -146,6 +209,16 @@ function loadTable(){
     }
 
     records.forEach((person,index)=>{
+
+         // Search by name
+    if(!person.name.toLowerCase().includes(keyword)){
+        return;
+    }
+
+    // Filter by month
+    if(selectedMonth !== "" && !person.date.includes(selectedMonth)){
+        return;
+    }
 
         tbody.innerHTML += `
         <tr>
@@ -207,6 +280,32 @@ function clearRecords(){
         loadTable();
 
     }
+
+}
+
+function exportExcel(){
+
+let table =
+document.querySelector("table");
+
+let workbook =
+XLSX.utils.table_to_book(table);
+
+XLSX.writeFile(workbook,"QR_Records.xlsx");
+
+}
+
+async function exportPDF(){
+
+const {jsPDF}=window.jspdf;
+
+let pdf=new jsPDF();
+
+pdf.autoTable({
+html:"table"
+});
+
+pdf.save("QR_Records.pdf");
 
 }
 
