@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DAPO QR Code Generator</title>
+<title>QR Code Generator</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -124,10 +124,18 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
 Generate QR Code
 </button>
 
+<button onclick="printQR()">
+🖨 Print QR Code
+</button>
+    
 <button onclick="window.location.href='records.html'">
 View Records
 </button>
 
+<button onclick="window.location.href='admin.html'">
+    ⚙ Admin Settings
+    </button>
+    
 <button class="logout-btn" onclick="logout()">
 Logout
 </button>
@@ -152,7 +160,60 @@ if(!name || !address || !cell || !email){
     alert("Please complete all fields.");
     return;
 }
+function printQR(){
 
+const qr = document.getElementById("qrcode");
+
+if(qr.innerHTML === ""){
+    alert("Please generate a QR Code first.");
+    return;
+}
+
+let printWindow = window.open("", "", "width=500,height=600");
+
+printWindow.document.write(`
+    <html>
+    <head>
+        <title>Print QR Code</title>
+
+        <style>
+            body{
+                text-align:center;
+                font-family:Arial;
+                margin-top:40px;
+            }
+
+            h2{
+                margin-bottom:20px;
+            }
+
+            img,canvas{
+                width:250px;
+                height:250px;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <h2>Generated QR Code</h2>
+
+        ${qr.innerHTML}
+
+    </body>
+
+    </html>
+`);
+
+printWindow.document.close();
+
+printWindow.focus();
+
+printWindow.print();
+
+printWindow.close();
+
+}
 // Validate Philippine mobile number
 const phonePattern = /^09\d{9}$/;
 
