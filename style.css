@@ -81,3 +81,20 @@ button:hover{
     width:100%;
     height:auto;
 }
+
+.scan-btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:15px 30px;
+    background:#2e7d32;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-size:18px;
+    transition:.3s;
+}
+
+.scan-btn:hover{
+    background:#43a047;
+    transform:scale(1.05);
+}
