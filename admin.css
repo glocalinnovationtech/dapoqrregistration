@@ -13,10 +13,15 @@ html{
 }
 
 body{
+    margin:0;
     font-family:Arial, Helvetica, sans-serif;
     background:linear-gradient(135deg,#dff7dc,#f4fff4);
-    display:flex;
     color:#333;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
 }
 
 /* =========================
@@ -87,9 +92,13 @@ body{
 ========================= */
 
 .main{
-    margin-left:270px;
-    width:100%;
+    margin-left:250px;
+    width:calc(100% - 250px);
+    min-height:100vh;
     padding:35px;
+
+    display:flex;
+    flex-direction:column;
 }
 
 .main h1{
@@ -296,10 +305,11 @@ tr:hover{
    FOOTER
 ========================= */
 
-footer{
-    margin-top:60px;
+.footer{
+    width:100%;
     text-align:center;
-    padding:25px;
+    margin-top:50px;
+    padding:20px;
     color:#666;
     font-size:14px;
     border-top:1px solid #ddd;
@@ -311,7 +321,7 @@ footer{
 
 @media(max-width:768px){
 
-    body{
+    .container{
         display:block;
     }
 
@@ -323,6 +333,7 @@ footer{
 
     .main{
         margin-left:0;
+        width:100%;
         padding:20px;
     }
 
