@@ -1,0 +1,67 @@
+body{
+
+    font-family:Arial;
+    
+    background:#dff7dc;
+    
+    text-align:center;
+    
+    padding:40px;
+    
+    }
+    
+    .scanner-container{
+    
+    max-width:700px;
+    
+    margin:auto;
+    
+    background:white;
+    
+    padding:30px;
+    
+    border-radius:15px;
+    
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    
+    }
+    
+    #reader{
+    
+    width:100%;
+    
+    margin:20px auto;
+    
+    }
+    
+    textarea{
+    
+    width:100%;
+    
+    padding:15px;
+    
+    border-radius:10px;
+    
+    font-size:15px;
+    
+    resize:none;
+    
+    }
+    
+    .back-btn{
+    
+    display:inline-block;
+    
+    margin-top:20px;
+    
+    padding:12px 25px;
+    
+    background:#4CAF50;
+    
+    color:white;
+    
+    text-decoration:none;
+    
+    border-radius:10px;
+    
+    }

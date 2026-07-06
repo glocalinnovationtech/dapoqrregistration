@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Scan QR Code</title>
+
+<link rel="stylesheet" href="scanner.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+</head>
+
+<body>
+
+<div class="scanner-container">
+
+<h1>
+<i class="fa-solid fa-camera"></i>
+QR Code Scanner
+</h1>
+
+<div id="reader"></div>
+
+<h2>Scanned Result</h2>
+
+<textarea
+id="result"
+rows="6"
+readonly>
+</textarea>
+
+<br><br>
+
+<a href="index.html" class="back-btn">
+
+Back to QR Generator
+
+</a>
+
+</div>
+
+<script src="scanner.js"></script>
+
+</body>
+
+</html>

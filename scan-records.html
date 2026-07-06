@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Scanned QR Records</title>
+
+<link rel="stylesheet" href="admin.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h1>Scanned QR Records</h1>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+
+<th>Date</th>
+
+<th>QR Information</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let scans = JSON.parse(localStorage.getItem("scanRecords")) || [];
+
+let table = document.getElementById("tableBody");
+
+scans.forEach((scan,index)=>{
+
+table.innerHTML += `
+<tr>
+<td>${index+1}</td>
+<td>${scan.date}</td>
+<td>${scan.data}</td>
+</tr>
+`;
+
+});
+
+</script>
+
+</body>
+
+</html>
