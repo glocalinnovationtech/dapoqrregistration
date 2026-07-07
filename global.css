@@ -13,35 +13,38 @@
 
 html{
     scroll-behavior:smooth;
+    width:100%;
+    height:100%;
 }
-
-/* BODY */
 
 body{
+    width:100%;
     min-height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f7f8;
+    overflow-x:hidden;
+
     display:flex;
     flex-direction:column;
-    font-family:Arial, Helvetica, sans-serif;
-    overflow-x:hidden;
-    background:#f4f7f8;
 }
 
-/* MAIN CONTENT */
+/* Main wrapper */
 
-main,
-.main,
-.container{
+.container,
+.main{
+    width:100%;
     flex:1;
 }
 
-/* IMAGES */
+/* Images */
 
-img{
+img,
+canvas{
     max-width:100%;
     height:auto;
 }
 
-/* FORMS */
+/* Forms */
 
 input,
 textarea,
@@ -50,7 +53,7 @@ select{
     max-width:100%;
 }
 
-/* BUTTONS */
+/* Buttons */
 
 button,
 .scan-btn{
@@ -58,13 +61,7 @@ button,
     transition:.3s;
 }
 
-/* LINKS */
-
-a{
-    text-decoration:none;
-}
-
-/* TABLES */
+/* Tables */
 
 .table-container{
     width:100%;
@@ -76,316 +73,151 @@ table{
     border-collapse:collapse;
 }
 
-/* FOOTER */
-
-footer{
-
-    margin-top:auto;
-
-    width:100%;
-
-    text-align:center;
-
-    padding:20px;
-
-    background:#2e7d32;
-
-    color:white;
-
-    font-size:14px;
-
-}
-
-/* FLOATING CHATBOT */
-
-.chat-button{
-
-    position:fixed;
-
-    bottom:25px;
-
-    right:25px;
-
-    width:65px;
-
-    height:65px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#4CAF50;
-
-    color:white;
-
-    font-size:28px;
-
-    text-decoration:none;
-
-    box-shadow:0 5px 12px rgba(0,0,0,.25);
-
-    z-index:999;
-
-    transition:.3s;
-
-}
-
-.chat-button:hover{
-
-    transform:scale(1.08);
-
-    background:#2e7d32;
-
-}
-
-/* RESPONSIVE IMAGES */
+/* QR Code */
 
 #qrcode{
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     margin-top:20px;
-
 }
 
 #qrcode img,
 #qrcode canvas{
-
+    width:100%;
     max-width:250px;
-
-    width:100%;
-
     height:auto;
-
 }
 
-/* ==========================================
-   DESKTOP
-========================================== */
+/* Floating Chatbot */
 
-@media (min-width:1200px){
+.chat-button{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#4CAF50;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    font-size:28px;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+    z-index:999;
+}
 
-.container{
+.chat-button:hover{
+    background:#2e7d32;
+}
 
-    width:95%;
+/* Footer */
 
-    max-width:1200px;
+footer{
+    width:100%;
+    margin-top:auto;
+    background:#2e7d32;
+    color:white;
+    text-align:center;
+    padding:18px;
+}
 
+/* =============================
+   LARGE DESKTOP
+============================= */
+
+@media screen and (min-width:1400px){
+
+.container,
+.main{
+    max-width:1400px;
     margin:auto;
-
 }
 
 }
 
-/* ==========================================
+/* =============================
    LAPTOP
-========================================== */
+============================= */
 
-@media (max-width:1199px){
+@media screen and (max-width:1200px){
 
-.container{
-
+.container,
+.main{
     width:95%;
-
     margin:auto;
-
 }
 
 }
 
-/* ==========================================
+/* =============================
    TABLET
-========================================== */
+============================= */
 
-@media (max-width:992px){
+@media screen and (max-width:992px){
 
 .dashboard{
-
-    display:grid;
-
     grid-template-columns:repeat(2,1fr);
-
-    gap:20px;
-
-}
-
-.main{
-
-    margin-left:0;
-
-    width:100%;
-
-}
-
-.sidebar{
-
-    width:230px;
-
 }
 
 }
 
-/* ==========================================
+/* =============================
    MOBILE
-========================================== */
+============================= */
 
-@media (max-width:768px){
-
-body{
-
-    display:block;
-
-}
-
-.sidebar{
-
-    position:relative;
-
-    width:100%;
-
-    min-height:auto;
-
-}
-
-.main{
-
-    margin-left:0 !important;
-
-    width:100%;
-
-    padding:20px;
-
-}
+@media screen and (max-width:768px){
 
 .dashboard{
-
-    display:grid;
-
     grid-template-columns:1fr;
-
-    gap:15px;
-
-}
-
-.card{
-
-    width:100%;
-
 }
 
 button,
 .scan-btn{
-
     width:100%;
-
-}
-
-.actions{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-}
-
-.actions button,
-.actions a{
-
-    width:100%;
-
-}
-
-.chat-button{
-
-    right:15px;
-
-    bottom:15px;
-
-    width:60px;
-
-    height:60px;
-
-    font-size:24px;
-
 }
 
 table{
-
     display:block;
-
     overflow-x:auto;
-
     white-space:nowrap;
-
-}
-
-}
-
-/* ==========================================
-   SMALL MOBILE
-========================================== */
-
-@media (max-width:480px){
-
-h1{
-
-    font-size:24px;
-
-}
-
-h2{
-
-    font-size:20px;
-
-}
-
-.container{
-
-    padding:15px;
-
-}
-
-button{
-
-    font-size:15px;
-
-    padding:12px;
-
-}
-
-input,
-textarea{
-
-    font-size:15px;
-
-}
-
-footer{
-
-    font-size:12px;
-
-    padding:15px;
-
 }
 
 .chat-button{
+    width:60px;
+    height:60px;
+    font-size:24px;
+}
 
-    width:55px;
+}
 
-    height:55px;
+/* =============================
+   SMALL PHONE
+============================= */
 
-    font-size:22px;
+@media screen and (max-width:480px){
 
+.container,
+.main{
+    padding:15px;
+}
+
+h1{
+    font-size:24px;
+}
+
+h2{
+    font-size:20px;
+}
+
+button{
+    font-size:15px;
+}
+
+footer{
+    font-size:12px;
 }
 
 }
