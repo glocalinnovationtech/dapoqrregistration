@@ -17,18 +17,17 @@ body{
     font-family:Arial, Helvetica, sans-serif;
     background:linear-gradient(135deg,#dff7dc,#f4fff4);
     color:#333;
+    overflow-x:hidden;
 }
 
-.container{
-    display:flex;
-    min-height:100vh;
-}
+
 
 /* =========================
    SIDEBAR
 ========================= */
 
 .sidebar{
+    scrollbar-width:thin;
     width:250px;
     background:#2e7d32;
     min-height:100vh;
@@ -37,6 +36,8 @@ body{
     left:0;
     top:0;
     overflow-y:auto;
+    z-index:1000;
+    box-shadow:3px 0 12px rgba(0,0,0,.15);
 }
 
 .logo{
@@ -70,7 +71,9 @@ body{
     color:white;
     padding:12px 15px;
     border-radius:8px;
-    transition:0.3s;
+    transition:
+        background .3s,
+        padding-left .3s;
 }
 
 .sidebar ul li a i{
@@ -92,11 +95,11 @@ body{
 ========================= */
 
 .main{
+    overflow-x:hidden;
     margin-left:250px;
     width:calc(100% - 250px);
     min-height:100vh;
     padding:35px;
-
     display:flex;
     flex-direction:column;
 }
@@ -153,20 +156,37 @@ body{
 }
 
 .card{
+
     text-decoration:none;
     background:linear-gradient(to bottom,#ffffff,#f4fff3);
+
     border-radius:15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    gap:8px;
+
     padding:35px;
+
     text-align:center;
+
     color:#2e7d32;
+
     box-shadow:0 6px 15px rgba(0,0,0,.15);
+
     border:2px solid transparent;
-    transition:0.3s;
+
+    transition:.3s;
     cursor:pointer;
+
 }
 
 .card:hover{
-    transform:translateY(-10px);
+    transform:translateY(-6px);
     background:#c8f7c5;
     border-color:#4CAF50;
 }
@@ -197,6 +217,8 @@ body{
 ========================= */
 
 button{
+    font-weight:600;
+    font-size:15px;
     background:#4CAF50;
     color:white;
     border:none;
@@ -229,13 +251,21 @@ label{
 }
 
 input,
-select,
-textarea{
+textarea,
+select{
+
     width:100%;
+
     padding:12px;
+
     border:1px solid #ccc;
+
     border-radius:8px;
+
     font-size:15px;
+
+    transition:.25s;
+
 }
 
 input:focus,
@@ -306,9 +336,9 @@ tr:hover{
 ========================= */
 
 .footer{
+    margin-top:auto;
     width:100%;
     text-align:center;
-    margin-top:50px;
     padding:20px;
     color:#666;
     font-size:14px;
@@ -316,19 +346,61 @@ tr:hover{
 }
 
 /* =========================
-   RESPONSIVE
+   MENU BUTTON
 ========================= */
 
-@media(max-width:768px){
+.menu-toggle{
+    display:none;
+    position:fixed;
+    top:15px;
+    left:15px;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    padding:12px 15px;
+    border-radius:8px;
+    font-size:22px;
+    cursor:pointer;
+    z-index:2000;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
+}
 
-    .container{
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width:768px){
+
+    .menu-toggle{
         display:block;
     }
 
     .sidebar{
-        width:100%;
-        position:relative;
-        min-height:auto;
+        position:fixed;
+        left:-260px;
+        top:0;
+        width:250px;
+        height:100vh;
+        overflow-y:auto;
+        transition:left .35s ease;
+        z-index:1500;
+    }
+
+    .sidebar.show{
+        left:0;
+    }
+
+    .sidebar::-webkit-scrollbar{
+        width:8px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb{
+        background:#66bb6a;
+        border-radius:10px;
+    }
+
+    .sidebar::-webkit-scrollbar-track{
+        background:#2e7d32;
     }
 
     .main{
@@ -348,17 +420,48 @@ tr:hover{
 
     .topbar{
         display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:25px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:8px;
     }
-    
-    .topbar h3{
-        color:#2e7d32;
+
+}
+
+@media (max-width:480px){
+
+    .main{
+        padding:15px;
     }
-    
-    .topbar p{
-        color:#666;
+
+    .card{
+        padding:20px;
+    }
+
+    .card i{
+        font-size:42px;
+    }
+
+    .card h2{
+        font-size:20px;
+    }
+
+    .card p{
+        font-size:14px;
+    }
+
+    .menu-toggle{
+        top:10px;
+        left:10px;
+        padding:10px 12px;
+        font-size:20px;
+    }
+
+    .chat-button{
+        width:55px;
+        height:55px;
+        right:15px;
+        bottom:15px;
+        font-size:22px;
     }
 
 }
