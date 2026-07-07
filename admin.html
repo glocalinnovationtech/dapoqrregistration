@@ -27,8 +27,12 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
         
 </script>
 
+<button class="menu-toggle" onclick="toggleSidebar()">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
 <!-- Sidebar -->
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
 
     <div class="logo">
         <h2>DAPO</h2>
@@ -237,10 +241,11 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
     <i class="fa-solid fa-robot"></i>
 </a>
 
+</div> <!-- end of .main -->
 <footer class="footer">
     © 2026 DAPO QR Generator System | Administrator Panel
 </footer>
-</div> <!-- end of .main -->
+
 
 <script>
     function logout(){
@@ -255,6 +260,15 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
     }
     </script>
 
+<script>
+
+    function toggleSidebar(){
+    
+        document.getElementById("sidebar").classList.toggle("show");
+    
+    }
+    
+    </script>
 
 
 
