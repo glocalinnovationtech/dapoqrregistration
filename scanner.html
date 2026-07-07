@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Scan QR Code</title>
+<title>DAPO QR Code Scanner</title>
 
 <link rel="stylesheet" href="scanner.css">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<script src="scanner.js"></script>
+<!-- QR Scanner Library -->
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
 </head>
 
@@ -23,33 +21,45 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="scanner-container">
 
-<h1>
-<i class="fa-solid fa-camera"></i>
-QR Code Scanner
-</h1>
+    <h1>
+        <i class="fa-solid fa-camera"></i>
+        QR Code Scanner
+    </h1>
 
-<div id="reader"></div>
+    <p class="subtitle">
+        Point your camera at a QR Code to scan it.
+    </p>
 
-<h2>Scanned Result</h2>
+    <!-- Camera Preview -->
+    <div id="reader"></div>
 
-<textarea
-id="result"
-rows="6"
-readonly>
-</textarea>
+    <h2>Scanned Result</h2>
 
-<br><br>
+    <textarea
+        id="result"
+        rows="6"
+        readonly
+        placeholder="Scanned QR Code information will appear here...">
+    </textarea>
 
-<a href="index.html" class="back-btn">
+    <div class="buttons">
 
-Back to QR Generator
+        <button onclick="location.reload()">
+            <i class="fa-solid fa-rotate-right"></i>
+            Scan Again
+        </button>
 
-</a>
+        <a href="index.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to QR Generator
+        </a>
+
+    </div>
 
 </div>
 
+<!-- Your scanner script -->
 <script src="scanner.js"></script>
 
 </body>
-
 </html>
