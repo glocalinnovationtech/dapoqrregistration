@@ -1,3 +1,10 @@
+// Prevent multiple scans
+let scanned = false;
+
+// QR Code Scanner
+const html5QrCode = new Html5Qrcode("reader");
+
+// Save scanned record
 function saveScanRecord(decodedText){
 
     let name = "";
@@ -27,10 +34,10 @@ function saveScanRecord(decodedText){
 
     records.push({
 
-        name: name,
-        address: address,
-        cell: cell,
-        email: email,
+        name,
+        address,
+        cell,
+        email,
 
         date: now.toLocaleDateString(),
 
@@ -40,46 +47,98 @@ function saveScanRecord(decodedText){
 
     localStorage.setItem("scanRecords", JSON.stringify(records));
 
+    console.log("Record saved successfully.");
 }
 
+// Called when QR is detected
 function onScanSuccess(decodedText){
 
-    document.getElementById("result").value = decodedText;
+    // Prevent duplicate scans
+    if(scanned) return;
 
+    scanned = true;
+
+    console.log("QR Code Detected:");
+    console.log(decodedText);
+
+    if(!decodedText){
+
+        alert("QR Code contains no data.");
+
+        scanned = false;
+
+        return;
+
+    }
+
+    // Display scanned data
+    const resultBox = document.getElementById("result");
+
+    if(resultBox){
+
+        resultBox.value = decodedText;
+
+    }else{
+
+        console.warn("Result textbox (#result) was not found.");
+
+    }
+
+    // Save to Local Storage
     saveScanRecord(decodedText);
 
-    html5QrCode.stop();
+    // Stop scanner safely
+    html5QrCode.stop()
+    .then(() => {
 
-    alert("QR Code scanned successfully!");
+        console.log("Scanner stopped.");
+
+        alert("QR Code scanned successfully!");
+
+    })
+    .catch(err => {
+
+        console.error("Unable to stop scanner:", err);
+
+    });
 
 }
 
-const html5QrCode = new Html5Qrcode("reader");
+// Scanner errors (ignored to avoid console spam)
+function onScanFailure(error){
+    // Uncomment below for debugging
+    // console.warn(error);
+}
 
+// Start camera
 function startScanner(){
 
-    // Prefer the back camera on mobile devices
     html5QrCode.start(
 
         {
-            facingMode: "environment"
+            facingMode: {
+                ideal: "environment"
+            }
         },
 
         {
-            fps: 10,
-            qrbox: 250
+            fps:10,
+            qrbox:250
         },
 
-        onScanSuccess
+        onScanSuccess,
+        onScanFailure
 
-    ).catch(() => {
+    ).catch(err => {
 
-        // If no back camera is available,
-        // use the first detected camera.
+        console.warn("Back camera unavailable:", err);
 
+        // Fallback to available cameras
         Html5Qrcode.getCameras().then(cameras => {
 
-            if(cameras.length){
+            if(cameras && cameras.length > 0){
+
+                console.log("Using camera:", cameras[0].label);
 
                 html5QrCode.start(
 
@@ -90,7 +149,8 @@ function startScanner(){
                         qrbox:250
                     },
 
-                    onScanSuccess
+                    onScanSuccess,
+                    onScanFailure
 
                 );
 
@@ -100,10 +160,17 @@ function startScanner(){
 
             }
 
+        }).catch(error => {
+
+            console.error(error);
+
+            alert("Unable to access the camera.");
+
         });
 
     });
 
 }
 
+// Start scanning
 startScanner();
