@@ -1,4 +1,9 @@
-/* ===== GENERAL RESET ===== */
+/* ==========================================
+   DAPO QR Generator
+   GLOBAL RESPONSIVE CSS
+========================================== */
+
+/* RESET */
 
 *{
     margin:0;
@@ -10,102 +15,377 @@ html{
     scroll-behavior:smooth;
 }
 
+/* BODY */
+
 body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
     font-family:Arial, Helvetica, sans-serif;
-    line-height:1.5;
     overflow-x:hidden;
+    background:#f4f7f8;
 }
 
-/* ===== IMAGES ===== */
+/* MAIN CONTENT */
+
+main,
+.main,
+.container{
+    flex:1;
+}
+
+/* IMAGES */
 
 img{
     max-width:100%;
     height:auto;
 }
 
-/* ===== FORMS ===== */
+/* FORMS */
 
 input,
 textarea,
-select,
-button{
+select{
+    width:100%;
     max-width:100%;
-    box-sizing:border-box;
 }
 
-/* ===== TABLES ===== */
+/* BUTTONS */
+
+button,
+.scan-btn{
+    cursor:pointer;
+    transition:.3s;
+}
+
+/* LINKS */
+
+a{
+    text-decoration:none;
+}
+
+/* TABLES */
+
+.table-container{
+    width:100%;
+    overflow-x:auto;
+}
 
 table{
     width:100%;
     border-collapse:collapse;
 }
 
-.table-responsive{
-    overflow-x:auto;
+/* FOOTER */
+
+footer{
+
+    margin-top:auto;
+
+    width:100%;
+
+    text-align:center;
+
+    padding:20px;
+
+    background:#2e7d32;
+
+    color:white;
+
+    font-size:14px;
+
 }
 
-/* ===== CONTAINERS ===== */
+/* FLOATING CHATBOT */
+
+.chat-button{
+
+    position:fixed;
+
+    bottom:25px;
+
+    right:25px;
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#4CAF50;
+
+    color:white;
+
+    font-size:28px;
+
+    text-decoration:none;
+
+    box-shadow:0 5px 12px rgba(0,0,0,.25);
+
+    z-index:999;
+
+    transition:.3s;
+
+}
+
+.chat-button:hover{
+
+    transform:scale(1.08);
+
+    background:#2e7d32;
+
+}
+
+/* RESPONSIVE IMAGES */
+
+#qrcode{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-top:20px;
+
+}
+
+#qrcode img,
+#qrcode canvas{
+
+    max-width:250px;
+
+    width:100%;
+
+    height:auto;
+
+}
+
+/* ==========================================
+   DESKTOP
+========================================== */
+
+@media (min-width:1200px){
 
 .container{
+
     width:95%;
+
+    max-width:1200px;
+
     margin:auto;
+
 }
 
-/* ===== RESPONSIVE ===== */
+}
 
-/* Tablet */
+/* ==========================================
+   LAPTOP
+========================================== */
 
-@media screen and (max-width:1024px){
+@media (max-width:1199px){
 
 .container{
+
     width:95%;
+
+    margin:auto;
+
+}
+
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width:992px){
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+.main{
+
+    margin-left:0;
+
+    width:100%;
+
+}
+
+.sidebar{
+
+    width:230px;
+
 }
 
 }
 
-/* Mobile */
+/* ==========================================
+   MOBILE
+========================================== */
 
-@media screen and (max-width:768px){
+@media (max-width:768px){
 
 body{
-    font-size:15px;
+
+    display:block;
+
 }
 
-.container{
-    width:95%;
-}
+.sidebar{
 
-button{
+    position:relative;
+
     width:100%;
+
+    min-height:auto;
+
 }
 
-input,
-textarea,
-select{
+.main{
+
+    margin-left:0 !important;
+
     width:100%;
+
+    padding:20px;
+
+}
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+}
+
+.card{
+
+    width:100%;
+
+}
+
+button,
+.scan-btn{
+
+    width:100%;
+
+}
+
+.actions{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.actions button,
+.actions a{
+
+    width:100%;
+
+}
+
+.chat-button{
+
+    right:15px;
+
+    bottom:15px;
+
+    width:60px;
+
+    height:60px;
+
+    font-size:24px;
+
 }
 
 table{
+
     display:block;
+
     overflow-x:auto;
-}
+
+    white-space:nowrap;
 
 }
 
-/* Small phones */
-
-@media screen and (max-width:480px){
-
-body{
-    font-size:14px;
 }
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width:480px){
 
 h1{
-    font-size:26px;
+
+    font-size:24px;
+
 }
 
 h2{
+
+    font-size:20px;
+
+}
+
+.container{
+
+    padding:15px;
+
+}
+
+button{
+
+    font-size:15px;
+
+    padding:12px;
+
+}
+
+input,
+textarea{
+
+    font-size:15px;
+
+}
+
+footer{
+
+    font-size:12px;
+
+    padding:15px;
+
+}
+
+.chat-button{
+
+    width:55px;
+
+    height:55px;
+
     font-size:22px;
+
 }
 
 }
