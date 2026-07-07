@@ -1,107 +1,109 @@
-// =============================
-// DAPO QR Scanner
-// scanner.js
-// =============================
+function saveScanRecord(decodedText){
 
-function onScanSuccess(decodedText) {
+    let name = "";
+    let address = "";
+    let cell = "";
+    let email = "";
 
-    // Display scanned QR
-    document.getElementById("result").value = decodedText;
-
-    // Stop scanning after successful scan
-    html5QrCode.stop();
-
-    // Split QR data into lines
-    let lines = decodedText.split("\n");
-
-    let data = {
-        name: "",
-        address: "",
-        cell: "",
-        email: ""
-    };
-
-    lines.forEach(line => {
+    decodedText.split("\n").forEach(line => {
 
         if(line.startsWith("Name:"))
-            data.name = line.replace("Name:", "").trim();
+            name = line.replace("Name:", "").trim();
 
         if(line.startsWith("Address:"))
-            data.address = line.replace("Address:", "").trim();
+            address = line.replace("Address:", "").trim();
 
         if(line.startsWith("Cell:"))
-            data.cell = line.replace("Cell:", "").trim();
+            cell = line.replace("Cell:", "").trim();
 
         if(line.startsWith("Email:"))
-            data.email = line.replace("Email:", "").trim();
+            email = line.replace("Email:", "").trim();
 
     });
 
     const now = new Date();
 
-    data.date = now.toLocaleDateString();
-    data.time = now.toLocaleTimeString();
+    let records = JSON.parse(localStorage.getItem("scanRecords")) || [];
 
-    // Save scanned record
-    let scans = JSON.parse(localStorage.getItem("scanRecords")) || [];
+    records.push({
 
-    scans.push(data);
+        name: name,
+        address: address,
+        cell: cell,
+        email: email,
 
-    localStorage.setItem("scanRecords", JSON.stringify(scans));
+        date: now.toLocaleDateString(),
+
+        time: now.toLocaleTimeString()
+
+    });
+
+    localStorage.setItem("scanRecords", JSON.stringify(records));
+
+}
+
+function onScanSuccess(decodedText){
+
+    document.getElementById("result").value = decodedText;
+
+    saveScanRecord(decodedText);
+
+    html5QrCode.stop();
 
     alert("QR Code scanned successfully!");
+
 }
 
 const html5QrCode = new Html5Qrcode("reader");
 
-// =====================================
-// Use BACK camera on phones
-// =====================================
+function startScanner(){
 
-Html5Qrcode.getCameras()
-.then(devices => {
+    // Prefer the back camera on mobile devices
+    html5QrCode.start(
 
-    if(!devices || devices.length === 0){
-        alert("No camera detected.");
-        return;
-    }
+        {
+            facingMode: "environment"
+        },
 
-    // Try to find the back camera
-    let backCamera = devices.find(device => {
+        {
+            fps: 10,
+            qrbox: 250
+        },
 
-        const label = device.label.toLowerCase();
+        onScanSuccess
 
-        return label.includes("back") ||
-               label.includes("rear") ||
-               label.includes("environment");
+    ).catch(() => {
+
+        // If no back camera is available,
+        // use the first detected camera.
+
+        Html5Qrcode.getCameras().then(cameras => {
+
+            if(cameras.length){
+
+                html5QrCode.start(
+
+                    cameras[0].id,
+
+                    {
+                        fps:10,
+                        qrbox:250
+                    },
+
+                    onScanSuccess
+
+                );
+
+            }else{
+
+                alert("No camera found.");
+
+            }
+
+        });
 
     });
 
-    const cameraId = backCamera
-        ? backCamera.id
-        : devices[0].id;
+}
 
-    html5QrCode.start(
-
-            { facingMode: "environment" },
-        
-            {
-                fps: 10,
-                qrbox: {
-                    width: 250,
-                    height: 250
-                }
-            },
-        
-            onScanSuccess
-        
-    );
-
-})
-.catch(err => {
-
-    console.log(err);
-
-    alert("Unable to access the camera.");
-
-});
+startScanner();
