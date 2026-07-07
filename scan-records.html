@@ -168,7 +168,9 @@ table{
 
 </div>
 
-<table>
+<div class="table-container">
+
+    <table>
 
 <thead>
 
@@ -314,6 +316,8 @@ link.href=URL.createObjectURL(blob);
 link.download="Scanned_QR_Records.csv";
 
 link.click();
+
+URL.revokeObjectURL(link.href);
 
 }
 
