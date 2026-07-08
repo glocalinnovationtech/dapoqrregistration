@@ -395,6 +395,19 @@ tr:hover{
 
 @media (max-width:768px){
 
+    .sidebar::-webkit-scrollbar{
+        width:6px;
+    }
+    
+    .sidebar::-webkit-scrollbar-thumb{
+        background:#81c784;
+        border-radius:10px;
+    }
+    
+    .sidebar::-webkit-scrollbar-track{
+        background:#2e7d32;
+    }
+
     .mobile-header{
         display:flex;
         align-items:center;
@@ -438,6 +451,11 @@ tr:hover{
 
     .sidebar{
         left:-260px;
+        top:60px;                 /* starts below the green header */
+        height:calc(100vh - 60px);
+        overflow-y:scroll;
+        -webkit-overflow-scrolling:touch;
+    
         transition:left .3s ease;
     }
 
