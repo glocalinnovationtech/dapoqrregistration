@@ -27,9 +27,11 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
         
 </script>
 
-<button class="menu-toggle" onclick="toggleSidebar()">
-    <i class="fa-solid fa-bars"></i>
-</button>
+<div class="mobile-header">
+
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
 
 
 <!-- Sidebar -->
@@ -265,13 +267,18 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
 
     function toggleSidebar(){
     
-        document.getElementById("sidebar").classList.toggle("show");
+        const sidebar = document.getElementById("sidebar");
+    
+        sidebar.classList.toggle("show");
+    
+        if(sidebar.classList.contains("show")){
+            document.body.style.overflow = "hidden";
+        }else{
+            document.body.style.overflow = "auto";
+        }
     
     }
     
     </script>
-
-
-
 </body>
 </html>
