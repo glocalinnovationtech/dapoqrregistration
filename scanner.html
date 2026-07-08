@@ -2,18 +2,20 @@
 <html lang="en">
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DAPO QR Code Scanner</title>
+    <title>DAPO QR Code Scanner</title>
 
-<link rel="stylesheet" href="scanner.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="scanner.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<!-- QR Scanner Library -->
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <!-- HTML5 QR Code Library -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
 </head>
 
@@ -30,7 +32,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         Point your camera at a QR Code to scan it.
     </p>
 
-    <!-- Camera Preview -->
+    <!-- Camera Scanner -->
     <div id="reader"></div>
 
     <h2>Scanned Result</h2>
@@ -44,7 +46,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
     <div class="buttons">
 
-        <button onclick="location.reload()">
+        <button type="button" onclick="location.reload()">
             <i class="fa-solid fa-rotate-right"></i>
             Scan Again
         </button>
@@ -58,8 +60,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
-<!-- Your scanner script -->
-<script src="https://unpkg.com/html5-qrcode"></script>
+<!-- Load scanner.js AFTER the page is loaded -->
 <script src="scanner.js"></script>
+
 </body>
 </html>
