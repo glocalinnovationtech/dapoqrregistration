@@ -30,7 +30,7 @@ body{
     scrollbar-width:thin;
     width:250px;
     background:#2e7d32;
-    min-height:100vh;
+    height:100vh;
     padding:25px;
     position:fixed;
     left:0;
@@ -451,9 +451,18 @@ tr:hover{
 
     .sidebar{
         left:-260px;
-        top:60px;                 /* starts below the green header */
-        height:calc(100vh - 60px);
-        overflow-y:scroll;
+        top:60px;
+        bottom:0;
+        height:auto;
+    
+        width:250px;
+    
+        overflow-y:auto;
+        overflow-x:hidden;
+    
+        padding:25px;
+        padding-bottom:80px;
+    
         -webkit-overflow-scrolling:touch;
     
         transition:left .3s ease;
