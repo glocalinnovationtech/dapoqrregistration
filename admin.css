@@ -36,8 +36,23 @@ body{
     left:0;
     top:0;
     overflow-y:auto;
+    overflow-x:hidden;
+    transition:left .3s ease;
     z-index:1000;
     box-shadow:3px 0 12px rgba(0,0,0,.15);
+}
+
+.sidebar::-webkit-scrollbar{
+    width:8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background:#66bb6a;
+    border-radius:10px;
+}
+
+.sidebar::-webkit-scrollbar-track{
+    background:#2e7d32;
 }
 
 .logo{
@@ -98,6 +113,7 @@ body{
     overflow-x:hidden;
     margin-left:250px;
     width:calc(100% - 250px);
+    max-width:100%;
     min-height:100vh;
     padding:35px;
     display:flex;
@@ -163,11 +179,8 @@ body{
     border-radius:15px;
 
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
     gap:8px;
 
     padding:35px;
@@ -180,8 +193,13 @@ body{
 
     border:2px solid transparent;
 
-    transition:.3s;
     cursor:pointer;
+
+    transition:
+        transform .3s,
+        background .3s,
+        border-color .3s,
+        box-shadow .3s;
 
 }
 
@@ -310,8 +328,8 @@ tr:hover{
 
 .chat-button{
     position:fixed;
-    right:30px;
-    bottom:30px;
+    right: 25px;
+    bottom:25px;
     width:65px;
     height:65px;
     background:#4CAF50;
@@ -336,7 +354,6 @@ tr:hover{
 ========================= */
 
 .footer{
-    margin-top:auto;
     width:100%;
     text-align:center;
     padding:20px;
@@ -365,31 +382,20 @@ tr:hover{
     box-shadow:0 3px 10px rgba(0,0,0,.25);
 }
 
-/* =========================
-   MOBILE
-========================= */
+.menu-toggle:focus{
+    outline:none;
+}
 
 .mobile-header{
     display:none;
 }
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width:768px){
 
-    .menu-toggle{
-    
-        display:block;
-        position:static;
-        background:transparent;
-        color:white;
-        border:none;
-        box-shadow:none;
-        padding:0;
-        font-size:24px;
-    
-    }
-    
     .mobile-header{
-    
         display:flex;
         align-items:center;
         gap:15px;
@@ -402,7 +408,6 @@ tr:hover{
         height:60px;
     
         background:#2e7d32;
-    
         color:white;
     
         padding:0 15px;
@@ -410,65 +415,69 @@ tr:hover{
         z-index:2000;
     
         box-shadow:0 2px 8px rgba(0,0,0,.2);
-    
     }
     
     .mobile-header h2{
-    
         font-size:20px;
         margin:0;
-    
     }
-    
+
+    .menu-toggle{
+        display:block;
+        position:fixed;
+        top:15px;
+        left:15px;
+        background:#2e7d32;
+        color:#fff;
+        border:none;
+        border-radius:8px;
+        padding:12px;
+        font-size:22px;
+        z-index:2500;
+    }
+
     .sidebar{
-    
         left:-260px;
         transition:left .3s ease;
-    
     }
-    
+
     .sidebar.show{
-    
         left:0;
-    
     }
-    
+
     .main{
-    
         margin-left:0;
         width:100%;
-        padding:80px 20px 20px;
-    
+        min-height:100vh;
+        padding:90px 20px 20px;
     }
-    
+
     .dashboard{
-    
         grid-template-columns:1fr;
-    
     }
-    
+
     .chat-button{
-    
         right:20px;
         bottom:20px;
-    
     }
-    
+
     .topbar{
-    
         display:flex;
         flex-direction:column;
         align-items:flex-start;
         gap:8px;
-    
     }
-    
-    }
+
+}
 
 @media (max-width:480px){
 
+    .dashboard{
+        gap:18px;
+    }
+    
     .main{
-        padding:15px;
+        padding:80px 15px 15px;
     }
 
     .card{
@@ -490,7 +499,7 @@ tr:hover{
     .menu-toggle{
         top:10px;
         left:10px;
-        padding:10px 12px;
+        padding:10px;
         font-size:20px;
     }
 
