@@ -452,20 +452,25 @@ tr:hover{
     .sidebar{
         left:-260px;
         top:60px;
-        bottom:0;
-        height:auto;
     
         width:250px;
+        height:calc(100vh - 60px);
     
         overflow-y:auto;
         overflow-x:hidden;
     
         padding:25px;
-        padding-bottom:80px;
+        box-sizing:border-box;
     
         -webkit-overflow-scrolling:touch;
     
         transition:left .3s ease;
+    }
+
+    .sidebar ul{
+        list-style:none;
+        padding-bottom:120px;
+        margin-bottom:40px;
     }
 
     .sidebar.show{
