@@ -28,7 +28,7 @@ body{
 
 .sidebar{
     scrollbar-width:thin;
-    width:250px;
+    width:270px;
     background:#2e7d32;
     height:100vh;
     padding:25px;
@@ -81,18 +81,26 @@ body{
 }
 
 .sidebar ul li a{
-    display:block;
+    display:flex;
+    align-items:center;
+    gap:10px;
+
     text-decoration:none;
     color:white;
     padding:12px 15px;
     border-radius:8px;
+
+    white-space:nowrap;
+
     transition:
         background .3s,
         padding-left .3s;
 }
 
 .sidebar ul li a i{
-    margin-right:10px;
+    width:20px;
+    text-align:center;
+    flex-shrink:0;
 }
 
 .sidebar ul li a:hover{
@@ -111,8 +119,8 @@ body{
 
 .main{
     overflow-x:hidden;
-    margin-left:250px;
-    width:calc(100% - 250px);
+    margin-left:270px;
+    width:calc(100% - 270px);
     max-width:100%;
     min-height:100vh;
     padding:35px;
@@ -450,21 +458,31 @@ tr:hover{
     }
 
     .sidebar{
-        left:-260px;
+        left:-270px;
         top:60px;
     
-        width:250px;
+        width:270px;
         height:calc(100vh - 60px);
     
         overflow-y:auto;
         overflow-x:hidden;
     
+        overscroll-behavior:contain;
+        -webkit-overflow-scrolling:touch;
+    
         padding:25px;
         box-sizing:border-box;
     
-        -webkit-overflow-scrolling:touch;
-    
         transition:left .3s ease;
+    }
+    
+    .sidebar.show{
+        left:0;
+    }
+    
+    .sidebar ul{
+        list-style:none;
+        padding-bottom:160px;
     }
 
     .sidebar ul{
