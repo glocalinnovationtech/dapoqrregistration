@@ -30,8 +30,7 @@ body{
 
 /* Main wrapper */
 
-.container,
-.main{
+.container{
     width:100%;
     flex:1;
 }
@@ -115,7 +114,7 @@ table{
 
 /* Footer */
 
-footer{
+footer:not(.footer){
     width:100%;
     margin-top:auto;
     background:#2e7d32;
@@ -130,13 +129,12 @@ footer{
 
 @media screen and (min-width:1400px){
 
-.container,
-.main{
+.container{
     max-width:1400px;
     margin:auto;
 }
-
 }
+
 
 /* =============================
    LAPTOP
@@ -144,13 +142,12 @@ footer{
 
 @media screen and (max-width:1200px){
 
-.container,
-.main{
-    width:95%;
-    margin:auto;
-}
-
-}
+    .container{
+        width:95%;
+        margin:auto;
+    }
+    
+    }
 
 /* =============================
    TABLET
@@ -199,25 +196,24 @@ table{
 
 @media screen and (max-width:480px){
 
-.container,
-.main{
-    padding:15px;
-}
+    .container{
+        padding:15px;
+    }
 
-h1{
-    font-size:24px;
-}
+    h1{
+        font-size:24px;
+    }
 
-h2{
-    font-size:20px;
-}
+    h2{
+        font-size:20px;
+    }
 
-button{
-    font-size:15px;
-}
+    button{
+        font-size:15px;
+    }
 
-footer{
-    font-size:12px;
-}
+    footer{
+        font-size:12px;
+    }
 
 }
