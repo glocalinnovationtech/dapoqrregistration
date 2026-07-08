@@ -33,6 +33,11 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
         <i class="fa-solid fa-bars"></i>
     </button>
 
+    <h2>DAPO QR Generator</h2>
+
+</div>
+
+
 
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
@@ -41,7 +46,6 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
         <h2>DAPO</h2>
         <p>QR Generator</p>
     </div>
-
     <ul>
 
     <li>
@@ -244,7 +248,7 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
     <i class="fa-solid fa-robot"></i>
 </a>
 
-</div> <!-- end of .main -->
+ <!-- end of .main -->
 <footer class="footer">
     © 2026 DAPO QR Generator System | Administrator Panel
 </footer>
@@ -265,19 +269,27 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
 
 <script>
 
-    function toggleSidebar(){
+function toggleSidebar(){
+
+document.getElementById("sidebar").classList.toggle("show");
+
+}
+</script>
+<script>
+
+    document.querySelectorAll(".sidebar a").forEach(link=>{
     
-        const sidebar = document.getElementById("sidebar");
+        link.addEventListener("click",()=>{
     
-        sidebar.classList.toggle("show");
+            if(window.innerWidth <= 768){
     
-        if(sidebar.classList.contains("show")){
-            document.body.style.overflow = "hidden";
-        }else{
-            document.body.style.overflow = "auto";
-        }
+                document.getElementById("sidebar").classList.remove("show");
     
-    }
+            }
+    
+        });
+    
+    });
     
     </script>
 </body>
